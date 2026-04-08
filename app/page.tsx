@@ -72,13 +72,13 @@ export default function Home() {
 
             <div className="mt-10 flex flex-wrap gap-4">
               <span className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2">
-                Spotify — Coming Friday
+                Spotify — Available Friday
               </span>
               <span className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2">
-                Apple Music — Coming Friday
+                Apple Music — Available Friday
               </span>
               <span className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2">
-                YouTube — Coming Friday
+                YouTube — Available Friday
               </span>
             </div>
           </div>
