@@ -133,8 +133,7 @@ export default function Home() {
           </p>
 
           <p className="mt-4 leading-8 text-neutral-400">
-            It&apos;s a chronological album, so it&apos;s best listened to from
-            track 1 through 10.
+            
           </p>
         </div>
       </section>
