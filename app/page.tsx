@@ -15,8 +15,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-neutral-200">
       {/* HERO */}
-      <section className="relative border-b border-white/10 bg-gradient-to-b from-black via-neutral-900 to-black">
-        <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+      <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-b from-black via-neutral-900 to-black">
+        {/* gritty texture overlays */}
+        <div className="pointer-events-none absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_25%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.05),transparent_20%),radial-gradient(circle_at_40%_80%,rgba(255,255,255,0.04),transparent_25%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-30 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-neutral-500">
             Southern Rock
           </p>
@@ -41,8 +46,10 @@ export default function Home() {
       </section>
 
       {/* ALBUM */}
-      <section id="album" className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid gap-10 md:grid-cols-2">
+      <section id="album" className="relative overflow-hidden mx-auto max-w-6xl px-6 py-20">
+        <div className="pointer-events-none absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_10%_10%,rgba(255,255,255,0.08),transparent_20%),radial-gradient(circle_at_90%_90%,rgba(255,255,255,0.05),transparent_20%)]" />
+
+        <div className="relative grid gap-10 md:grid-cols-2">
           <div className="rounded-[2rem] border border-white/10 bg-neutral-900 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
             <div className="aspect-square overflow-hidden rounded-[1.5rem]">
               <img
@@ -86,8 +93,10 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section className="border-y border-white/10 bg-neutral-950">
-        <div className="mx-auto max-w-6xl px-6 py-20">
+      <section className="relative overflow-hidden border-y border-white/10 bg-neutral-950">
+        <div className="pointer-events-none absolute inset-0 opacity-10 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_30%,transparent_70%,rgba(255,255,255,0.03))]" />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-20">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
             About
           </p>
@@ -103,42 +112,45 @@ export default function Home() {
       </section>
 
       {/* TRACK LIST */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
-          Track List
-        </p>
+      <section className="relative overflow-hidden mx-auto max-w-6xl px-6 py-20">
+        <div className="pointer-events-none absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.04),transparent_30%)]" />
 
-        <h2 className="mt-3 text-4xl font-bold text-white">Songs</h2>
-
-        <div className="mt-8 space-y-3">
-          {songs.map((song, index) => (
-            <div
-              key={song}
-              className="flex items-center justify-between rounded-xl border border-white/10 bg-neutral-900 px-5 py-4 transition hover:bg-neutral-800"
-            >
-              <span className="text-neutral-500">{index + 1}.</span>
-              <span className="ml-4 flex-1">{song}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 rounded-2xl border border-white/10 bg-neutral-900 p-6">
+        <div className="relative">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
-            Listen
+            Track List
           </p>
 
-          <p className="mt-4 leading-8 text-neutral-400">
-            Individual tracks are $0.99, the full album download is $9.99, and CDs are $10.00. No shipping is currently available.
-          </p>
+          <h2 className="mt-3 text-4xl font-bold text-white">Songs</h2>
 
-          <p className="mt-4 leading-8 text-neutral-400">
-          </p>
+          <div className="mt-8 space-y-3">
+            {songs.map((song, index) => (
+              <div
+                key={song}
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-neutral-900 px-5 py-4 transition hover:bg-neutral-800"
+              >
+                <span className="text-neutral-500">{index + 1}.</span>
+                <span className="ml-4 flex-1">{song}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 rounded-2xl border border-white/10 bg-neutral-900 p-6">
+            <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
+              Listen
+            </p>
+
+            <p className="mt-4 leading-8 text-neutral-400">
+              Individual tracks are $0.99, the full album download is $9.99, and CDs are $10.00. No shipping is currently available.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* SPOTIFY */}
-      <section className="border-y border-white/10 bg-black">
-        <div className="mx-auto max-w-6xl px-6 py-20">
+      <section className="relative overflow-hidden border-y border-white/10 bg-black">
+        <div className="pointer-events-none absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:28px_28px]" />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-20">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
             Spotify Player
           </p>
@@ -166,8 +178,10 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section className="border-t border-white/10 bg-black">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+      <section className="relative overflow-hidden border-t border-white/10 bg-black">
+        <div className="pointer-events-none absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.05),transparent_20%)]" />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-16">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
             Contact
           </p>
