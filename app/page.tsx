@@ -14,6 +14,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-neutral-200">
+      {/* HERO */}
       <section className="relative border-b border-white/10 bg-gradient-to-b from-black via-neutral-900 to-black">
         <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-neutral-500">
@@ -39,6 +40,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ALBUM */}
       <section id="album" className="mx-auto max-w-6xl px-6 py-20">
         <div className="grid gap-10 md:grid-cols-2">
           <div className="rounded-[2rem] border border-white/10 bg-neutral-900 p-6 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
@@ -65,9 +67,7 @@ export default function Home() {
             </p>
 
             <p className="mt-4 leading-8 text-neutral-400">
-              A three-and-a-half-year journey told track by track.
-              It&apos;s a chronological album, so it&apos;s best listened to from
-            track 1 through 10.
+              A three-and-a-half-year journey told track by track. It&apos;s a chronological album, so it&apos;s best listened to from track 1 through 10.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -85,6 +85,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ABOUT */}
       <section className="border-y border-white/10 bg-neutral-950">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
@@ -96,13 +97,12 @@ export default function Home() {
           </h2>
 
           <p className="mt-6 max-w-3xl leading-8 text-neutral-400">
-            Zook&apos;z County Line blends southern rock grit with country
-            storytelling. These songs come from real moments — heartbreak, long
-            nights, and roads that don&apos;t lead back.
+            Zook&apos;z County Line blends southern rock grit with country storytelling. These songs come from real moments, heartbreak, long nights, and roads that don&apos;t lead back.
           </p>
         </div>
       </section>
 
+      {/* TRACK LIST */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
           Track List
@@ -128,16 +128,15 @@ export default function Home() {
           </p>
 
           <p className="mt-4 leading-8 text-neutral-400">
-            Individual tracks are $0.99, the full album download is $9.99, and
-            CDs start at $10.00  No shipping currently available.
+            Individual tracks are $0.99, the full album download is $9.99, and CDs are $10.00. No shipping is currently available.
           </p>
 
           <p className="mt-4 leading-8 text-neutral-400">
-            
           </p>
         </div>
       </section>
 
+      {/* SPOTIFY */}
       <section className="border-y border-white/10 bg-black">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
@@ -166,6 +165,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CONTACT */}
       <section className="border-t border-white/10 bg-black">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
