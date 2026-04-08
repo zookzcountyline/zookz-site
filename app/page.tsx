@@ -17,7 +17,7 @@ export default function Home() {
       <section className="relative border-b border-white/10 bg-gradient-to-b from-black via-neutral-900 to-black">
         <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-neutral-500">
-            Southern Rock • Country • Virginia
+            Southern Rock
           </p>
 
           <h1 className="text-5xl font-black tracking-tight text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.1)] md:text-7xl">
@@ -127,7 +127,7 @@ export default function Home() {
 
           <p className="mt-4 leading-8 text-neutral-400">
             Individual tracks are $0.99, the full album download is $9.99, and
-            CDs are just $10.00.
+            CDs are just $10.00 cash. No shipping currently available.
           </p>
 
           <p className="mt-4 leading-8 text-neutral-400">
