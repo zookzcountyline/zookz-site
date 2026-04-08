@@ -20,14 +20,15 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.08),transparent_25%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.05),transparent_20%),radial-gradient(circle_at_40%_80%,rgba(255,255,255,0.04),transparent_25%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-30 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(0,0,0,0.95))]" />
-<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,140,0,0.08),rgba(0,0,0,0.6))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_25%,rgba(0,0,0,0.95))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,140,0,0.08),rgba(0,0,0,0.6))]" />
+
         <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
           <p className="mb-6 text-sm uppercase tracking-[0.4em] text-neutral-500">
             Southern Rock
           </p>
 
-          <h1 className="text-5xl font-black tracking-tight text-white drop-shadow-[0_4px_20px_rgba(255,255,255,0.1)] md:text-7xl">
+          <h1 className="text-5xl font-black tracking-tight text-white drop-shadow-[0_0_20px_rgba(255,140,0,0.35)] md:text-7xl">
             Zook&apos;z County Line
           </h1>
 
@@ -47,7 +48,7 @@ export default function Home() {
       </section>
 
       {/* ALBUM */}
-      <section id="album" className="relative overflow-hidden mx-auto max-w-6xl px-6 py-20">
+      <section id="album" className="relative mx-auto max-w-6xl overflow-hidden px-6 py-20">
         <div className="pointer-events-none absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_10%_10%,rgba(255,255,255,0.08),transparent_20%),radial-gradient(circle_at_90%_90%,rgba(255,255,255,0.05),transparent_20%)]" />
 
         <div className="relative grid gap-10 md:grid-cols-2">
@@ -75,7 +76,9 @@ export default function Home() {
             </p>
 
             <p className="mt-4 leading-8 text-neutral-400">
-              A three-and-a-half-year journey told track by track. It&apos;s a chronological album, so it&apos;s best listened to from track 1 through 10.
+              A three-and-a-half-year journey told track by track. It&apos;s a
+              chronological album, so it&apos;s best listened to from track 1 through
+              10.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -107,13 +110,15 @@ export default function Home() {
           </h2>
 
           <p className="mt-6 max-w-3xl leading-8 text-neutral-400">
-            Zook&apos;z County Line blends southern rock grit with country storytelling. These songs come from real moments, heartbreak, long nights, and roads that don&apos;t lead back.
+            Zook&apos;z County Line blends southern rock grit with country
+            storytelling. These songs come from real moments, heartbreak, long
+            nights, and roads that don&apos;t lead back.
           </p>
         </div>
       </section>
 
       {/* TRACK LIST */}
-      <section className="relative overflow-hidden mx-auto max-w-6xl px-6 py-20">
+      <section className="relative mx-auto max-w-6xl overflow-hidden px-6 py-20">
         <div className="pointer-events-none absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.04),transparent_30%)]" />
 
         <div className="relative">
@@ -141,7 +146,8 @@ export default function Home() {
             </p>
 
             <p className="mt-4 leading-8 text-neutral-400">
-              Individual tracks are $0.99, the full album download is $9.99, and CDs are $10.00. No shipping is currently available.
+              Individual tracks are $0.99, the full album download is $9.99, and
+              CDs are $10.00. No shipping is currently available.
             </p>
           </div>
         </div>
