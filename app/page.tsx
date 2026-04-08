@@ -154,7 +154,7 @@ export default function Home() {
               Listen
             </p>
 <p className="mt-4 leading-8 text-neutral-400">
-  If you’ve got Spotify or Apple Music, you can listen to the full album at no extra cost.
+  If you have a Spotify or Apple Music subscription, you can listen to the full album at no extra cost.
 </p>
             <p className="mt-4 leading-8 text-neutral-400">
               Individual tracks are $0.99, the full album download is $9.99, and CDs are $12.00, available locally. Shipping coming soon.
