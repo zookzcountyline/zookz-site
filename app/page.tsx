@@ -153,7 +153,9 @@ export default function Home() {
             <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
               Listen
             </p>
-
+<p className="mt-4 leading-8 text-neutral-400">
+  If you’ve got Spotify or Apple Music, you can listen to the full album at no extra cost.
+</p>
             <p className="mt-4 leading-8 text-neutral-400">
               Individual tracks are $0.99, the full album download is $9.99, and CDs are $12.00, available locally. Shipping coming soon.
             </p>
