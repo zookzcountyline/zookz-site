@@ -129,7 +129,7 @@ export default function Home() {
 
           <p className="mt-4 leading-8 text-neutral-400">
             Individual tracks are $0.99, the full album download is $9.99, and
-            CDs are just $10.00  No shipping currently available.
+            CDs start at $10.00  No shipping currently available.
           </p>
 
           <p className="mt-4 leading-8 text-neutral-400">
