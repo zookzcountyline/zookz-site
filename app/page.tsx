@@ -66,6 +66,8 @@ export default function Home() {
 
             <p className="mt-4 leading-8 text-neutral-400">
               A three-and-a-half-year journey told track by track.
+              It&apos;s a chronological album, so it&apos;s best listened to from
+            track 1 through 10.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
