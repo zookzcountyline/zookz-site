@@ -82,15 +82,24 @@ export default function Home() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
-              <span className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2">
-                Spotify — Available Friday
-              </span>
-              <span className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2">
-                Apple Music — Available Friday
-              </span>
-              <span className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2">
-                YouTube — Available Friday
-              </span>
+        <a
+  href="https://zookzcountyline.com"
+  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
+>
+  Spotify — Available Friday
+</a>
+              <a
+  href="https://zookzcountyline.com"
+  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
+>
+  iTunes — Available Friday
+</a>
+              <a
+  href="https://zookzcountyline.com"
+  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
+>
+  YouTube — Available Friday
+</a>
             </div>
           </div>
         </div>
@@ -146,8 +155,7 @@ export default function Home() {
             </p>
 
             <p className="mt-4 leading-8 text-neutral-400">
-              Individual tracks are $0.99, the full album download is $9.99, and
-              CDs are $10.00. No shipping is currently available.
+              Individual tracks are $0.99, the full album download is $9.99, and CDs are $12.00, available locally. Shipping coming soon.
             </p>
           </div>
         </div>
