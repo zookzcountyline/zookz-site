@@ -72,7 +72,7 @@ export default function Home() {
             </h2>
 
             <p className="mt-6 leading-8 text-neutral-400">
-              Releases Friday, April 10, 2026.
+              Now streaming everywhere.
             </p>
 
             <p className="mt-4 leading-8 text-neutral-400">
@@ -86,19 +86,30 @@ export default function Home() {
   href="https://zookzcountyline.com"
   className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
 >
-  Spotify — Available Friday
+  <a
+  href="https://open.spotify.com/album/5OI0QhZOMVZ400hcvEDaor?si=zWYIW7HeSZOdW57B9Er88A"
+  target="_blank"
+  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
+>
+  Listen on Spotify
+</a>
+  target="_blank"
+  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
+>
+  Listen on Spotify
+</a>
 </a>
               <a
   href="https://zookzcountyline.com"
   className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
 >
-  iTunes — Available Friday
+  href=https://music.apple.com/us/song/redhead-fever/1891476082  
 </a>
               <a
   href="https://zookzcountyline.com"
   className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
 >
-  YouTube — Available Friday
+  href="https://www.youtube.com/watch?v=AswGi4qo_Qg&list=OLAK5uy_kcjK5HWrOIE_dG0RlE--8w64DY_zsjiDw"
 </a>
             </div>
           </div>
