@@ -17,6 +17,7 @@ export default function Home() {
   ];
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const [current, setCurrent] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -24,6 +25,12 @@ export default function Home() {
 
   const playSong = (index: number) => {
     if (!audioRef.current) return;
+
+    if (current === index && playing) {
+      audioRef.current.pause();
+      setPlaying(false);
+      return;
+    }
 
     audioRef.current.src = songs[index].file;
     audioRef.current.play();
@@ -34,6 +41,11 @@ export default function Home() {
   const nextSong = () => {
     if (current === null) return;
     playSong((current + 1) % songs.length);
+  };
+
+  const prevSong = () => {
+    if (current === null) return;
+    playSong((current - 1 + songs.length) % songs.length);
   };
 
   const formatTime = (t: number) => {
@@ -47,37 +59,66 @@ export default function Home() {
     <main className="min-h-screen bg-black text-neutral-200">
 
       {/* HERO */}
-      <section className="text-center px-6 py-32 border-b border-white/10">
-        <p className="uppercase tracking-[0.4em] text-neutral-500">
+      <section className="relative px-6 py-32 text-center border-b border-white/10 bg-gradient-to-b from-black via-neutral-900 to-black">
+
+        {/* glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,140,0,0.15),transparent_60%)]" />
+
+        <p className="relative uppercase tracking-[0.4em] text-neutral-500">
           Southern Rock
         </p>
 
-        <h1 className="text-6xl font-black text-white mt-6">
+        <h1 className="relative mt-6 text-6xl md:text-7xl font-black text-white drop-shadow-[0_0_25px_rgba(255,140,0,0.4)]">
           Zook&apos;z County Line
         </h1>
 
-        <p className="mt-6 text-neutral-400">
-          Smoke in the air. Whiskey on the breath.
+        <p className="relative mt-6 text-neutral-400">
+          Smoke in the air. Whiskey on the breath. Stories that don&apos;t fade.
         </p>
       </section>
 
       {/* ALBUM */}
-      <section className="max-w-5xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10">
-        <img src="/cover.jpg" className="rounded-2xl" />
+      <section className="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
+        
+        <div className="rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+          <img
+            src="/cover.jpg"
+            className="w-full h-full object-cover hover:scale-105 transition duration-700"
+          />
+        </div>
 
         <div>
-          <h2 className="text-4xl font-bold text-white">
-            Ashes & Empty Bottles
+          <h2 className="text-5xl font-bold text-white">
+            Ashes &amp; Empty Bottles
           </h2>
 
-          <p className="mt-6 text-neutral-400">
-            A three-and-a-half-year journey told track by track.
+          <p className="mt-6 text-neutral-400 leading-8">
+            A three-and-a-half-year journey told track by track.  
+            Every scar. Every mile. Every song in order.
           </p>
+
+          <div className="mt-8 flex gap-4">
+            <a
+              href="https://open.spotify.com/album/5OI0QhZOMVZ400hcvEDaor"
+              target="_blank"
+              className="px-5 py-2 bg-white text-black rounded-xl font-semibold hover:bg-neutral-200"
+            >
+              Spotify
+            </a>
+
+            <a
+              href="https://music.apple.com/us/album/ashes-empty-bottles/1891476081"
+              target="_blank"
+              className="px-5 py-2 bg-neutral-800 rounded-xl hover:bg-neutral-700"
+            >
+              Apple Music
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* TRACKS */}
-      <section className="max-w-4xl mx-auto px-6 py-20">
+      {/* TRACK LIST */}
+      <section className="max-w-4xl mx-auto px-6 py-24">
         <h2 className="text-4xl font-bold text-white">Track List</h2>
 
         <div className="mt-10 space-y-3">
@@ -85,10 +126,16 @@ export default function Home() {
             <div
               key={song.title}
               onClick={() => playSong(i)}
-              className="flex justify-between px-5 py-4 rounded-xl bg-neutral-900 border border-white/10 cursor-pointer hover:bg-neutral-800"
+              className={`flex justify-between items-center px-5 py-4 rounded-xl border transition cursor-pointer ${
+                current === i
+                  ? "bg-neutral-800 border-white/30"
+                  : "bg-neutral-900 border-white/10 hover:bg-neutral-800"
+              }`}
             >
               <span>{i + 1}. {song.title}</span>
-              <span>▶</span>
+              <span className="text-lg">
+                {current === i && playing ? "⏸" : "▶"}
+              </span>
             </div>
           ))}
         </div>
@@ -105,14 +152,19 @@ export default function Home() {
         }}
       />
 
-      {/* PLAYER */}
+      {/* SPOTIFY STYLE PLAYER */}
       {current !== null && (
-        <div className="fixed bottom-0 left-0 right-0 bg-neutral-900 p-4 border-t border-white/10">
+        <div className="fixed bottom-0 left-0 right-0 bg-neutral-950 border-t border-white/10 px-6 py-4">
+
+          {/* track info */}
           <div className="flex justify-between text-sm mb-2">
-            <span>{songs[current].title}</span>
-            <span>{formatTime(progress)} / {formatTime(duration)}</span>
+            <span className="text-white">{songs[current].title}</span>
+            <span className="text-neutral-400">
+              {formatTime(progress)} / {formatTime(duration)}
+            </span>
           </div>
 
+          {/* progress */}
           <input
             type="range"
             min="0"
@@ -122,8 +174,30 @@ export default function Home() {
               if (!audioRef.current) return;
               audioRef.current.currentTime = Number(e.target.value);
             }}
-            className="w-full"
+            className="w-full mb-3 accent-orange-500"
           />
+
+          {/* controls */}
+          <div className="flex justify-center items-center gap-8 text-2xl">
+            <button onClick={prevSong}>⏮</button>
+
+            <button
+              onClick={() => {
+                if (!audioRef.current) return;
+                if (playing) {
+                  audioRef.current.pause();
+                } else {
+                  audioRef.current.play();
+                }
+                setPlaying(!playing);
+              }}
+              className="text-3xl"
+            >
+              {playing ? "⏸" : "▶"}
+            </button>
+
+            <button onClick={nextSong}>⏭</button>
+          </div>
         </div>
       )}
     </main>
