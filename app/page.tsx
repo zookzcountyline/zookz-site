@@ -1,6 +1,5 @@
 "use client";
-
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Home() {
   const songs = [
@@ -20,205 +19,153 @@ export default function Home() {
 
   const [current, setCurrent] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  // 🎧 MAIN PLAY FUNCTION (FIXED + RELIABLE)
-  const playSong = async (index: number) => {
+  // ▶️ Play song
+  const playSong = (index: number) => {
     if (!audioRef.current) return;
 
-    const audio = audioRef.current;
-
-    // Toggle same song
     if (current === index) {
       if (playing) {
-        audio.pause();
+        audioRef.current.pause();
         setPlaying(false);
       } else {
-        try {
-          await audio.play();
-          setPlaying(true);
-        } catch (err) {
-          console.log("Play blocked:", err);
-        }
+        audioRef.current.play();
+        setPlaying(true);
       }
       return;
     }
 
-    // New song
+    audioRef.current.src = songs[index].file;
+    audioRef.current.play();
     setCurrent(index);
-    audio.src = songs[index].file;
-    audio.currentTime = 0;
-
-    try {
-      await audio.play();
-      setPlaying(true);
-    } catch (err) {
-      console.log("Autoplay blocked:", err);
-      setPlaying(false);
-    }
+    setPlaying(true);
   };
 
+  // ⏭ Next
   const nextSong = () => {
     if (current === null) return;
     const next = (current + 1) % songs.length;
     playSong(next);
   };
 
+  // ⏮ Prev
   const prevSong = () => {
     if (current === null) return;
     const prev = (current - 1 + songs.length) % songs.length;
     playSong(prev);
   };
 
+  // ⏱ Update progress
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const update = () => {
+      setProgress(audio.currentTime);
+      setDuration(audio.duration || 0);
+    };
+
+    audio.addEventListener("timeupdate", update);
+    audio.addEventListener("loadedmetadata", update);
+
+    return () => {
+      audio.removeEventListener("timeupdate", update);
+      audio.removeEventListener("loadedmetadata", update);
+    };
+  }, []);
+
+  // 🎯 Seek
+  const handleSeek = (e: any) => {
+    if (!audioRef.current) return;
+    const newTime = e.target.value;
+    audioRef.current.currentTime = newTime;
+    setProgress(newTime);
+  };
+
+  // ⏱ Format time
+  const formatTime = (time: number) => {
+    if (!time) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
   return (
-    <main className="min-h-screen bg-black text-neutral-200">
+    <main className="min-h-screen bg-black text-white px-6 py-20">
 
-      {/* HERO */}
-      <section className="border-b border-white/10 px-6 py-24 text-center">
-        <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
-          Southern Rock • Country Grit • Whiskey Stories
-        </p>
+      <h1 className="text-5xl font-black mb-12 text-center">
+        Zook'z County Line
+      </h1>
 
-        <h1 className="mt-6 text-5xl font-black text-white md:text-7xl">
-          Zook&apos;z County Line
-        </h1>
+      {/* TRACK LIST */}
+      <div className="max-w-3xl mx-auto space-y-3">
+        {songs.map((song, index) => (
+          <div
+            key={song.title}
+            className={`flex items-center justify-between px-5 py-4 rounded-xl border transition ${
+              current === index
+                ? "bg-neutral-800 border-white/30"
+                : "bg-neutral-900 border-white/10"
+            }`}
+          >
+            <span className="text-neutral-500">{index + 1}</span>
 
-        <p className="mt-6 text-neutral-400">
-          Smoke in the air. Whiskey on the breath. Stories that don&apos;t fade.
-        </p>
+            <span className="flex-1 ml-4">{song.title}</span>
 
-        <a
-          href="#album"
-          className="mt-10 inline-block rounded-xl bg-white px-6 py-3 text-black font-semibold"
-        >
-          Listen to the New Album
-        </a>
-      </section>
-
-      {/* ALBUM */}
-      <section id="album" className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-10">
-        <img src="/cover.jpg" className="rounded-2xl" alt="Album Cover" />
-
-        <div>
-          <h2 className="text-4xl font-bold text-white">
-            Ashes &amp; Empty Bottles
-          </h2>
-
-          <p className="mt-6 text-neutral-400">
-            Written over three and a half years—every track in order, every scar intact.
-          </p>
-
-          <div className="mt-8 flex gap-4 flex-wrap">
-            <a
-              href="https://open.spotify.com/album/5OI0QhZOMVZ400hcvEDaor"
-              target="_blank"
-              className="bg-neutral-800 px-4 py-2 rounded-xl"
-            >
-              Spotify
-            </a>
-
-            <a
-              href="https://music.apple.com/us/album/ashes-empty-bottles/1891476081"
-              target="_blank"
-              className="bg-neutral-800 px-4 py-2 rounded-xl"
-            >
-              Apple Music
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* TRACK LIST*/}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-4xl font-bold text-white">Track List</h2>
-
-        <div className="mt-10 space-y-3">
-          {songs.map((song, index) => (
-            <div
-              key={song.title}
+            <button
               onClick={() => playSong(index)}
-              className={`flex items-center justify-between px-5 py-4 rounded-xl border transition cursor-pointer ${
-                current === index
-                  ? "bg-neutral-800 border-white/30"
-                  : "bg-neutral-900 border-white/10"
-              }`}
+              className="text-lg"
             >
-              <span className="text-neutral-500">{index + 1}.</span>
+              {current === index && playing ? "⏸" : "▶"}
+            </button>
+          </div>
+        ))}
+      </div>
 
-              <span className="ml-4 flex-1">{song.title}</span>
+      {/* AUDIO */}
+      <audio ref={audioRef} onEnded={nextSong} />
 
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playSong(index);
-                }}
-              >
-                {current === index && playing ? "⏸" : "▶"}
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* SPOTIFY EMBED */}
-      <section className="px-6 py-20 border-y border-white/10">
-        <h2 className="text-3xl text-white font-bold">
-          Listen on Spotify
-        </h2>
-
-        <div className="mt-8">
-          <iframe
-            src="https://open.spotify.com/embed/album/5OI0QhZOMVZ400hcvEDaor"
-            width="100%"
-            height="380"
-            allow="autoplay; clipboard-write; encrypted-media"
-            className="rounded-xl"
-          />
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section className="px-6 py-20 text-center">
-        <h2 className="text-3xl text-white font-bold">Booking & Info</h2>
-        <p className="mt-6 text-neutral-400">
-          booking@zookzcountyline.com
-        </p>
-      </section>
-
-      {/* AUDIO ELEMENT */}
-      <audio
-        ref={audioRef}
-        onEnded={nextSong}
-      />
-
-      {/* STICKY PLAYER */}
+      {/* 🎵 PLAYER */}
       {current !== null && (
-        <div className="fixed bottom-0 left-0 right-0 bg-neutral-900 border-t border-white/10 p-4 flex justify-between items-center">
-          <div>
-            <p className="text-sm text-neutral-400">Now Playing</p>
-            <p>{songs[current].title}</p>
+        <div className="fixed bottom-0 left-0 right-0 bg-neutral-900 border-t border-white/10 p-4">
+
+          {/* Song info */}
+          <div className="flex justify-between text-sm mb-2">
+            <span>{songs[current].title}</span>
+            <span>
+              {formatTime(progress)} / {formatTime(duration)}
+            </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Progress bar */}
+          <input
+            type="range"
+            min="0"
+            max={duration}
+            value={progress}
+            onChange={handleSeek}
+            className="w-full mb-3"
+          />
+
+          {/* Controls */}
+          <div className="flex justify-center items-center gap-6 text-xl">
             <button onClick={prevSong}>⏮</button>
 
             <button
-              onClick={async () => {
+              onClick={() => {
                 if (!audioRef.current) return;
-
-                const audio = audioRef.current;
-
-                try {
-                  if (playing) {
-                    audio.pause();
-                    setPlaying(false);
-                  } else {
-                    await audio.play();
-                    setPlaying(true);
-                  }
-                } catch (err) {
-                  console.log("Play error:", err);
+                if (playing) {
+                  audioRef.current.pause();
+                } else {
+                  audioRef.current.play();
                 }
+                setPlaying(!playing);
               }}
+              className="text-2xl"
             >
               {playing ? "⏸" : "▶"}
             </button>
