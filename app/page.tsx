@@ -22,6 +22,7 @@ export default function Home() {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   const playSong = (index: number) => {
     if (!audioRef.current) return;
@@ -33,7 +34,9 @@ export default function Home() {
     }
 
     audioRef.current.src = songs[index].file;
+    audioRef.current.volume = volume;
     audioRef.current.play();
+
     setCurrent(index);
     setPlaying(true);
   };
@@ -60,8 +63,6 @@ export default function Home() {
 
       {/* HERO */}
       <section className="relative px-6 py-32 text-center border-b border-white/10 bg-gradient-to-b from-black via-neutral-900 to-black">
-
-        {/* glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,140,0,0.15),transparent_60%)]" />
 
         <p className="relative uppercase tracking-[0.4em] text-neutral-500">
@@ -81,10 +82,7 @@ export default function Home() {
       <section className="max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
         
         <div className="rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.8)]">
-          <img
-            src="/cover.jpg"
-            className="w-full h-full object-cover hover:scale-105 transition duration-700"
-          />
+          <img src="/cover.jpg" className="w-full h-full object-cover" />
         </div>
 
         <div>
@@ -93,25 +91,23 @@ export default function Home() {
           </h2>
 
           <p className="mt-6 text-neutral-400 leading-8">
-            A three-and-a-half-year journey told track by track.  
-            Every scar. Every mile. Every song in order.
+            A three-and-a-half-year journey told track by track.
           </p>
 
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex gap-4 flex-wrap">
+            <button
+              onClick={() => playSong(0)}
+              className="px-5 py-2 bg-orange-500 text-black rounded-xl font-semibold hover:bg-orange-400"
+            >
+              ▶ Play Album
+            </button>
+
             <a
               href="https://open.spotify.com/album/5OI0QhZOMVZ400hcvEDaor"
               target="_blank"
-              className="px-5 py-2 bg-white text-black rounded-xl font-semibold hover:bg-neutral-200"
+              className="px-5 py-2 bg-white text-black rounded-xl font-semibold"
             >
               Spotify
-            </a>
-
-            <a
-              href="https://music.apple.com/us/album/ashes-empty-bottles/1891476081"
-              target="_blank"
-              className="px-5 py-2 bg-neutral-800 rounded-xl hover:bg-neutral-700"
-            >
-              Apple Music
             </a>
           </div>
         </div>
@@ -128,7 +124,7 @@ export default function Home() {
               onClick={() => playSong(i)}
               className={`flex justify-between items-center px-5 py-4 rounded-xl border transition cursor-pointer ${
                 current === i
-                  ? "bg-neutral-800 border-white/30"
+                  ? "bg-neutral-800 border-white/30 shadow-[0_0_20px_rgba(255,140,0,0.25)]"
                   : "bg-neutral-900 border-white/10 hover:bg-neutral-800"
               }`}
             >
@@ -152,16 +148,22 @@ export default function Home() {
         }}
       />
 
-      {/* SPOTIFY STYLE PLAYER */}
+      {/* PLAYER */}
       {current !== null && (
         <div className="fixed bottom-0 left-0 right-0 bg-neutral-950 border-t border-white/10 px-6 py-4">
 
-          {/* track info */}
-          <div className="flex justify-between text-sm mb-2">
-            <span className="text-white">{songs[current].title}</span>
-            <span className="text-neutral-400">
+          {/* info */}
+          <div className="flex items-center gap-4 mb-2">
+            <img src="/cover.jpg" className="w-12 h-12 rounded-lg" />
+
+            <div className="flex-1">
+              <p className="text-white text-sm">{songs[current].title}</p>
+              <p className="text-xs text-neutral-400">Zook'z County Line</p>
+            </div>
+
+            <div className="text-xs text-neutral-400">
               {formatTime(progress)} / {formatTime(duration)}
-            </span>
+            </div>
           </div>
 
           {/* progress */}
@@ -178,25 +180,43 @@ export default function Home() {
           />
 
           {/* controls */}
-          <div className="flex justify-center items-center gap-8 text-2xl">
-            <button onClick={prevSong}>⏮</button>
+          <div className="flex justify-between items-center">
 
-            <button
-              onClick={() => {
-                if (!audioRef.current) return;
-                if (playing) {
-                  audioRef.current.pause();
-                } else {
-                  audioRef.current.play();
-                }
-                setPlaying(!playing);
+            <div className="flex gap-6 text-xl">
+              <button onClick={prevSong}>⏮</button>
+
+              <button
+                onClick={() => {
+                  if (!audioRef.current) return;
+                  if (playing) {
+                    audioRef.current.pause();
+                  } else {
+                    audioRef.current.play();
+                  }
+                  setPlaying(!playing);
+                }}
+                className="text-2xl"
+              >
+                {playing ? "⏸" : "▶"}
+              </button>
+
+              <button onClick={nextSong}>⏭</button>
+            </div>
+
+            {/* volume */}
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value={volume}
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                setVolume(v);
+                if (audioRef.current) audioRef.current.volume = v;
               }}
-              className="text-3xl"
-            >
-              {playing ? "⏸" : "▶"}
-            </button>
-
-            <button onClick={nextSong}>⏭</button>
+              className="w-24 accent-orange-500"
+            />
           </div>
         </div>
       )}
