@@ -127,7 +127,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TRACK LIST */}
+      {/* TRACK LIST*/}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <h2 className="text-4xl font-bold text-white">Track List</h2>
 
