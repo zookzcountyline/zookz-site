@@ -82,40 +82,34 @@ export default function Home() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
-        <a
-  href="https://zookzcountyline.com"
-  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
->
+        <div className="mt-10 flex flex-wrap gap-4">
   <a
-  href="https://open.spotify.com/album/5OI0QhZOMVZ400hcvEDaor?si=zWYIW7HeSZOdW57B9Er88A"
-  target="_blank"
-  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
->
-  Listen on Spotify
-</a>
-  target="_blank"
-  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
->
-  Listen on Spotify
-</a>
-</a>
-              <a
-  href="https://zookzcountyline.com"
-  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
->
-  href=https://music.apple.com/us/song/redhead-fever/1891476082  
-</a>
-              <a
-  href="https://zookzcountyline.com"
-  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 hover:bg-neutral-700 transition"
->
-  href="https://www.youtube.com/watch?v=AswGi4qo_Qg&list=OLAK5uy_kcjK5HWrOIE_dG0RlE--8w64DY_zsjiDw"
-</a>
-            </div>
-          </div>
-        </div>
-      </section>
+    href="https://open.spotify.com/album/5OI0QhZOMVZ400hcvEDaor?si=zWYIW7HeSZOdW57B9Er88A"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
+  >
+    Listen on Spotify
+  </a>
 
+  <a
+  href="https://music.apple.com/us/album/ashes-empty-bottles/1891476081"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
+>
+  Listen on Apple Music
+  </a>
+
+  <a
+    href="https://www.youtube.com/watch?v=AswGi4qo_Qg&list=OLAK5uy_kcjK5HWrOIE_dG0RlE--8w64DY_zsjiDw"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="rounded-xl border border-white/10 bg-neutral-800 px-4 py-2 transition hover:bg-neutral-700"
+  >
+    Watch on YouTube
+  </a>
+</div>
       {/* ABOUT */}
       <section className="relative overflow-hidden border-y border-white/10 bg-neutral-950">
         <div className="pointer-events-none absolute inset-0 opacity-10 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_30%,transparent_70%,rgba(255,255,255,0.03))]" />
