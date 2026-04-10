@@ -157,7 +157,7 @@ export default function Home() {
   If you have a Spotify or Apple Music subscription, you can listen to the full album at no extra cost.
 </p>
             <p className="mt-4 leading-8 text-neutral-400">
-              Individual tracks are $0.99, the full album download is $9.99, and CDs are $12.00, available locally. Shipping coming soon.
+              Apple Music Individual tracks are $0.99, the full album download is $9.99, and CDs are $12.00, available locally. Shipping coming soon.
             </p>
           </div>
         </div>
