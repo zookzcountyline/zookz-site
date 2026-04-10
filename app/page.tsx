@@ -1,5 +1,4 @@
 export default function Home() {
- export default function Home() {
   const songs = [
     "Redhead Fever",
     "Tequila & Smoke",
