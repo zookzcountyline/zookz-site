@@ -1,42 +1,60 @@
 "use client";
+
 import { useRef, useState } from "react";
 
 export default function Home() {
   const songs = [
-  { title: "Redhead Fever", file: "/songs/Redhead Fever (Remastered).mp3" },
-  { title: "Tequila & Smoke", file: "/songs/Tequila & Smoke (Remastered).mp3" },
-  { title: "Shattered Glass", file: "/songs/Shattered Glass (Remastered).mp3" },
-  { title: "Wedding Dress", file: "/songs/Wedding Dress (Remastered).mp3" },
-  { title: "Echoes of You", file: "/songs/Echoes of You (Remastered).mp3" },
-  { title: "Black Roses", file: "/songs/Black Roses (Remastered).mp3" },
-  { title: "Blue Eyes", file: "/songs/Blue Eyes (Remastered).mp3" },
-  { title: "Man in the Mirror", file: "/songs/Man in the Mirror (Remastered).mp3" },
-  { title: "Letters", file: "/songs/Letters (Remastered).mp3" },
-  { title: "Rise from the Ashes", file: "/songs/Rise from the Ashes (Remastered).mp3" },
+    { title: "Redhead Fever", file: "/songs/Redhead Fever (Remastered).mp3" },
+    { title: "Tequila & Smoke", file: "/songs/Tequila & Smoke (Remastered).mp3" },
+    { title: "Shattered Glass", file: "/songs/Shattered Glass (Remastered).mp3" },
+    { title: "Wedding Dress", file: "/songs/Wedding Dress (Remastered).mp3" },
+    { title: "Echoes of You", file: "/songs/Echoes of You (Remastered).mp3" },
+    { title: "Black Roses", file: "/songs/Black Roses (Remastered).mp3" },
+    { title: "Blue Eyes", file: "/songs/Blue Eyes (Remastered).mp3" },
+    { title: "Man in the Mirror", file: "/songs/Man in the Mirror (Remastered).mp3" },
+    { title: "Letters", file: "/songs/Letters (Remastered).mp3" },
+    { title: "Rise from the Ashes", file: "/songs/Rise from the Ashes (Remastered).mp3" },
   ];
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const [current, setCurrent] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
 
-  const playSong = (index: number) => {
+  // 🎧 MAIN PLAY FUNCTION (FIXED + RELIABLE)
+  const playSong = async (index: number) => {
     if (!audioRef.current) return;
 
+    const audio = audioRef.current;
+
+    // Toggle same song
     if (current === index) {
       if (playing) {
-        audioRef.current.pause();
+        audio.pause();
         setPlaying(false);
       } else {
-        audioRef.current.play();
-        setPlaying(true);
+        try {
+          await audio.play();
+          setPlaying(true);
+        } catch (err) {
+          console.log("Play blocked:", err);
+        }
       }
       return;
     }
 
-    audioRef.current.src = songs[index].file;
-    audioRef.current.play();
+    // New song
     setCurrent(index);
-    setPlaying(true);
+    audio.src = songs[index].file;
+    audio.currentTime = 0;
+
+    try {
+      await audio.play();
+      setPlaying(true);
+    } catch (err) {
+      console.log("Autoplay blocked:", err);
+      setPlaying(false);
+    }
   };
 
   const nextSong = () => {
@@ -53,6 +71,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-neutral-200">
+
       {/* HERO */}
       <section className="border-b border-white/10 px-6 py-24 text-center">
         <p className="text-sm uppercase tracking-[0.4em] text-neutral-500">
@@ -77,11 +96,7 @@ export default function Home() {
 
       {/* ALBUM */}
       <section id="album" className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-10">
-        <img
-          src="/cover.jpg"
-          className="rounded-2xl"
-          alt="Album Cover"
-        />
+        <img src="/cover.jpg" className="rounded-2xl" alt="Album Cover" />
 
         <div>
           <h2 className="text-4xl font-bold text-white">
@@ -120,7 +135,8 @@ export default function Home() {
           {songs.map((song, index) => (
             <div
               key={song.title}
-              className={`flex items-center justify-between px-5 py-4 rounded-xl border transition ${
+              onClick={() => playSong(index)}
+              className={`flex items-center justify-between px-5 py-4 rounded-xl border transition cursor-pointer ${
                 current === index
                   ? "bg-neutral-800 border-white/30"
                   : "bg-neutral-900 border-white/10"
@@ -130,7 +146,12 @@ export default function Home() {
 
               <span className="ml-4 flex-1">{song.title}</span>
 
-              <button onClick={() => playSong(index)}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  playSong(index);
+                }}
+              >
                 {current === index && playing ? "⏸" : "▶"}
               </button>
             </div>
@@ -138,7 +159,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SPOTIFY EMBED (FIXED) */}
+      {/* SPOTIFY EMBED */}
       <section className="px-6 py-20 border-y border-white/10">
         <h2 className="text-3xl text-white font-bold">
           Listen on Spotify
@@ -157,17 +178,17 @@ export default function Home() {
 
       {/* CONTACT */}
       <section className="px-6 py-20 text-center">
-        <h2 className="text-3xl text-white font-bold">
-          Booking & Info
-        </h2>
-
+        <h2 className="text-3xl text-white font-bold">Booking & Info</h2>
         <p className="mt-6 text-neutral-400">
           booking@zookzcountyline.com
         </p>
       </section>
 
       {/* AUDIO ELEMENT */}
-      <audio ref={audioRef} onEnded={nextSong} />
+      <audio
+        ref={audioRef}
+        onEnded={nextSong}
+      />
 
       {/* STICKY PLAYER */}
       {current !== null && (
@@ -181,14 +202,22 @@ export default function Home() {
             <button onClick={prevSong}>⏮</button>
 
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (!audioRef.current) return;
-                if (playing) {
-                  audioRef.current.pause();
-                } else {
-                  audioRef.current.play();
+
+                const audio = audioRef.current;
+
+                try {
+                  if (playing) {
+                    audio.pause();
+                    setPlaying(false);
+                  } else {
+                    await audio.play();
+                    setPlaying(true);
+                  }
+                } catch (err) {
+                  console.log("Play error:", err);
                 }
-                setPlaying(!playing);
               }}
             >
               {playing ? "⏸" : "▶"}
