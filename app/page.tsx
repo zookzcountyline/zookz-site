@@ -109,6 +109,14 @@ export default function Home() {
             >
               Spotify
             </a>
+
+            <a
+              href="https://music.apple.com/us/album/ashes-empty-bottles/1891476081"
+              target="_blank"
+              className="px-5 py-2 bg-neutral-800 rounded-xl hover:bg-neutral-700"
+            >
+              Apple Music
+            </a>
           </div>
         </div>
       </section>
@@ -152,7 +160,6 @@ export default function Home() {
       {current !== null && (
         <div className="fixed bottom-0 left-0 right-0 bg-neutral-950 border-t border-white/10 px-6 py-4">
 
-          {/* info */}
           <div className="flex items-center gap-4 mb-2">
             <img src="/cover.jpg" className="w-12 h-12 rounded-lg" />
 
@@ -166,7 +173,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* progress */}
           <input
             type="range"
             min="0"
@@ -179,7 +185,6 @@ export default function Home() {
             className="w-full mb-3 accent-orange-500"
           />
 
-          {/* controls */}
           <div className="flex justify-between items-center">
 
             <div className="flex gap-6 text-xl">
@@ -203,7 +208,6 @@ export default function Home() {
               <button onClick={nextSong}>⏭</button>
             </div>
 
-            {/* volume */}
             <input
               type="range"
               min="0"
